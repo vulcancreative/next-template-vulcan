@@ -1,0 +1,11 @@
+@import "colours";
+@import "mixins";
+
+.footer {
+  background-color: $grey;
+  padding: 64px 25px 67px 25px;
+
+  .container {
+    @include container();
+  }
+}

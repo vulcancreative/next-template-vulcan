@@ -1,0 +1,380 @@
+// ====================================================
+// *  Media Queries
+// ====================================================
+
+// A map of breakpoints.
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+//
+//  RESPOND ABOVE
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-above(sm) {}
+@mixin respond-above($breakpoint) {
+
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+  
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+
+    // Log a warning.
+    @warn "Invalid breakpoint: #{$breakpoint}.";
+  }
+}
+
+//
+//  RESPOND BELOW
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-below(sm) {}
+@mixin respond-below($breakpoint) {
+
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    // Write the media query.
+    @media (max-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+  
+    // If the breakpoint doesn't exist in the map.
+  } @else {
+
+    // Log a warning.
+    @warn "Invalid breakpoint: #{$breakpoint}.";
+  }
+}
+
+//
+//  RESPOND BETWEEN
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-between(sm, md) {}
+@mixin respond-between($lower, $upper) {
+
+  // If both the lower and upper breakpoints exist in the map.
+  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
+
+    // Get the lower and upper breakpoints.
+    $lower-breakpoint: map-get($breakpoints, $lower);
+    $upper-breakpoint: map-get($breakpoints, $upper);
+
+    // Write the media query.
+    @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+      @content;
+    }
+  
+    // If one or both of the breakpoints don't exist.
+  } @else {
+
+    // If lower breakpoint is invalid.
+    @if (map-has-key($breakpoints, $lower) == false) {
+
+      // Log a warning.
+      @warn "Your lower breakpoint was invalid: #{$lower}.";
+    }
+
+    // If upper breakpoint is invalid.
+    @if (map-has-key($breakpoints, $upper) == false) {
+
+      // Log a warning.
+      @warn "Your upper breakpoint was invalid: #{$upper}.";
+    }
+  }
+}
+
+@mixin preventDrag() {
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+@mixin placeholder($colour) {
+
+  &::-webkit-input-placeholder {
+    color: $colour !important;
+    font-weight: 400 !important;
+  }
+
+  &:-moz-placeholder {
+    color: $colour !important;
+    font-weight: 400 !important;
+    opacity: 1;
+  }
+
+  &::-moz-placeholder {
+    color: $colour !important;
+    font-weight: 400 !important;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+    color: $colour !important;
+    font-weight: 400 !important;
+  }
+
+  &::-ms-input-placeholder {
+    color: $colour !important;
+    font-weight: 400 !important;
+  }
+
+  &::placeholder {
+    color: $colour !important;
+    font-weight: 400 !important;
+  }
+}
+
+@mixin h1() {
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  font-size: 56px;
+  line-height: 64px;
+  letter-spacing: -0.02em;
+
+  @include respond-below(lg) {
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: -0.01em;
+  }
+}
+
+@mixin h2() {
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  margin-bottom: 48px;
+
+  @include  respond-below(lg){
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.01em;
+    margin-bottom: 29px;
+  }
+}
+
+@mixin h3() {
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+
+  @include  respond-below(lg){
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 30px;
+  }
+}
+
+@mixin h4() {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+
+  @include  respond-below(lg){
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+  }
+}
+
+@mixin h5() {
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+
+  @include  respond-below(lg){
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 26px;
+  }
+}
+
+@mixin h6() {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: -0.01em;
+
+  @include  respond-below(lg){
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
+  }
+}
+
+@mixin label-1() {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+
+  @include  respond-below(lg){
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@mixin label-2() {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+
+  @include  respond-below(lg){
+    font-size: 15px;
+    line-height: 23px;
+  }
+}
+
+@mixin label-3() {
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+
+  @include  respond-below(lg){
+    font-size: 13px;
+    line-height: 21px;
+  }
+}
+
+@mixin p-1() {
+  font-family: Inter, sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 28px;
+
+  @include  respond-below(lg){
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@mixin p-2() {
+  font-family: Inter, sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 26px;
+
+  @include  respond-below(lg){
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+@mixin btn() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $green;
+  color: $white;
+  width: 160px;
+  height: 56px;
+  border-radius: 10px;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  @include no-underline();
+
+  @include  respond-below(lg){
+    font-size: 18px;
+    line-height: 24px;
+    height: 52px;
+  }
+
+  &:hover {
+    filter: drop-shadow(0px 8px 12px rgba(13, 16, 32, 0.15));
+  }
+
+  &:active {
+    background-color: $green-darker;
+    box-shadow: inset 0px 4px 12px rgba(13, 16, 32, 0.15);
+  }
+
+  &:disabled {
+    background-color: $bg-grey;
+    color: $text-grey-b;
+
+    &:hover {
+      filter: none;
+      cursor: default;
+    }
+  }
+}
+
+@mixin no-underline() {
+  text-decoration: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+@mixin container() {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include  respond-below(lg){
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  // Small devices (landscape phones, 576px and up)
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+}

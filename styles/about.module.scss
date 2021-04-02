@@ -1,0 +1,8 @@
+@import "mixins";
+
+.aboutPage {
+
+  .container {
+    @include container();
+  }
+}

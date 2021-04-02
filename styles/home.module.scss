@@ -1,0 +1,19 @@
+@import "colours";
+@import "mixins";
+
+.homePage {
+
+  .hero {
+    background-color: $bg-green;
+    height: 740px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    padding: 0 25px;
+  }
+
+  .container {
+    @include container();
+  }
+}
