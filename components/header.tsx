@@ -18,8 +18,8 @@ const Header = () => {
         className={`${styles.nav} ${showingMobileNav ? styles.show : ""}`}
       >
         <div className={styles.navMenus}>
-          <Link href="/about">
-            <a className={styles.link}>About</a>
+          <Link href="/contact">
+            <a className={styles.link}>Contact</a>
           </Link>
         </div>
       </div>

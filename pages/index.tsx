@@ -5,7 +5,7 @@ import Header from "../components/header";
 import styles from "../styles/home.module.scss";
 
 const metadata = {
-  title: "Next Template Vulcan",
+  title: "Next Template Vulcan: Home",
   description: "Your description",
   canonical: "https://vulcanca.com",
   imageAlt: "imageAlt",
