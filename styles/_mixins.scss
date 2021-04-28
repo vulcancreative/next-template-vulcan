@@ -3,24 +3,25 @@
 // ====================================================
 
 // A map of breakpoints.
-$breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
-);
+$breakpoints: (xs: 0,
+sm: 576px,
+md: 768px,
+lg: 992px,
+xl: 1200px,
+xxl: 1400px);
+
+$orientations: (landscape: landscape,
+portrait: portrait);
 
 //
 //  RESPOND ABOVE
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 // @include respond-above(sm) {}
-@mixin respond-above($breakpoint) {
+@mixin respond-above($breakpoint, $orientation: "") {
 
   // If the breakpoint exists in the map.
-  @if map-has-key($breakpoints, $breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) and $orientation=="" {
 
     // Get the breakpoint value.
     $breakpoint-value: map-get($breakpoints, $breakpoint);
@@ -29,9 +30,22 @@ $breakpoints: (
     @media (min-width: $breakpoint-value) {
       @content;
     }
-  
+
     // If the breakpoint doesn't exist in the map.
-  } @else {
+  }
+
+  @else if map-has-key($breakpoints, $breakpoint) and $orientation !="" {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+    $orientation-value: map-get($orientations, $orientation);
+
+    // Write the media query.
+    @media (min-width: ($breakpoint-value)) and (orientation: $orientation-value) {
+      @content;
+    }
+  }
+
+  @else {
 
     // Log a warning.
     @warn "Invalid breakpoint: #{$breakpoint}.";
@@ -43,10 +57,10 @@ $breakpoints: (
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 // @include respond-below(sm) {}
-@mixin respond-below($breakpoint) {
+@mixin respond-below($breakpoint, $orientation: "") {
 
   // If the breakpoint exists in the map.
-  @if map-has-key($breakpoints, $breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) and $orientation=="" {
 
     // Get the breakpoint value.
     $breakpoint-value: map-get($breakpoints, $breakpoint);
@@ -55,10 +69,22 @@ $breakpoints: (
     @media (max-width: ($breakpoint-value - 1)) {
       @content;
     }
-  
-    // If the breakpoint doesn't exist in the map.
-  } @else {
 
+    // If the breakpoint doesn't exist in the map.
+  }
+
+  @else if map-has-key($breakpoints, $breakpoint) and $orientation !="" {
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+    $orientation-value: map-get($orientations, $orientation);
+
+    // Write the media query.
+    @media (max-width: ($breakpoint-value - 1)) and (orientation: $orientation-value) {
+      @content;
+    }
+  }
+
+  @else {
     // Log a warning.
     @warn "Invalid breakpoint: #{$breakpoint}.";
   }
@@ -69,10 +95,10 @@ $breakpoints: (
 //––––––––––––––––––––––––––––––––––––––––––––––––––
 
 // @include respond-between(sm, md) {}
-@mixin respond-between($lower, $upper) {
+@mixin respond-between($lower, $upper, $orientation: "") {
 
   // If both the lower and upper breakpoints exist in the map.
-  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
+  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) and $orientation == "" {
 
     // Get the lower and upper breakpoints.
     $lower-breakpoint: map-get($breakpoints, $lower);
@@ -82,19 +108,37 @@ $breakpoints: (
     @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
       @content;
     }
-  
+
     // If one or both of the breakpoints don't exist.
-  } @else {
+  }
+
+  // If the lower and upper also orientation breakpoints exist in the map.
+  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) and $orientation != "" {
+
+    // Get the lower, upper, orientation breakpoints.
+    $lower-breakpoint: map-get($breakpoints, $lower);
+    $upper-breakpoint: map-get($breakpoints, $upper);
+    $orientation: map-get($orientations, $orientation);
+
+    // Write the media query.
+    @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) and (orientation: $orientation) {
+      @content;
+    }
+
+    // If one or both of the breakpoints don't exist.
+  }
+
+  @else {
 
     // If lower breakpoint is invalid.
-    @if (map-has-key($breakpoints, $lower) == false) {
+    @if (map-has-key($breakpoints, $lower)==false) {
 
       // Log a warning.
       @warn "Your lower breakpoint was invalid: #{$lower}.";
     }
 
     // If upper breakpoint is invalid.
-    @if (map-has-key($breakpoints, $upper) == false) {
+    @if (map-has-key($breakpoints, $upper)==false) {
 
       // Log a warning.
       @warn "Your upper breakpoint was invalid: #{$upper}.";
