@@ -1,0 +1,12 @@
+@import "colours";
+@import "mixins";
+
+.selectGroup {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    @include label-2();
+    margin-bottom: 2px;
+  }
+}

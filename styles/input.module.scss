@@ -1,0 +1,36 @@
+
+@import "colours";
+@import "mixins";
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    @include label-2();
+    margin-bottom: 2px;
+  }
+
+  input {
+    padding: 13px 20px;
+    border-radius: 10px;
+    border: 1px solid $outline-b;
+    color: $text-black;
+    @include p-1();
+
+    &:focus {
+      outline: none;
+      border-color: $outline-c;
+    }
+  }
+
+  + .inputGroup {
+    margin-top: 24px;
+  }
+}
+
+.error {
+  @include label-3();
+  color: $red;
+  margin: 2px 0;
+}

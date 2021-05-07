@@ -1,4 +1,4 @@
-import * as API from "@prismicio/client";
+import API from "@prismicio/client";
 
 const apiEndpoint = process.env.PRISMIC_ENDPOINT;
 const accessToken = process.env.PRISMIC_TOKEN;
@@ -18,5 +18,7 @@ const createClientOptions = (req = null, prismicAccessToken = null) => {
 const Prismic = (req = null) =>
   API.client(apiEndpoint, createClientOptions(req, accessToken));
 
+const Predicates = API.Predicates;
+
 export default Prismic;
-export { accessToken, API, apiEndpoint };
+export { accessToken, apiEndpoint, Predicates };

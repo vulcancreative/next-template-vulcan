@@ -1,10 +1,9 @@
+import Close from "@icons/close";
+import HamburgerMenu from "@icons/hamburger-menu";
+import styles from "@styles/header.module.scss";
+import Logo from "@svg/logo";
 import Link from "next/link";
 import { useState } from "react";
-
-import styles from "../styles/header.module.scss";
-import Close from "./svg/icons/general/close";
-import HamburgerMenu from "./svg/icons/general/hamburger-menu";
-import Logo from "./svg/logo";
 
 const Header = () => {
   const [showingMobileNav, setShowingMobileNav] = useState(false);
@@ -19,8 +18,8 @@ const Header = () => {
         className={`${styles.nav} ${showingMobileNav ? styles.show : ""}`}
       >
         <div className={styles.navMenus}>
-          <Link href="/about">
-            <a className={styles.link}>About</a>
+          <Link href="/contact">
+            <a className={styles.link}>Contact</a>
           </Link>
         </div>
       </div>

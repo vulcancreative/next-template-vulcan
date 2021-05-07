@@ -1,8 +1,16 @@
-import Head from "next/head";
+import Helmet from "@components/helmet";
 
 import Footer from "../components/footer";
 import Header from "../components/header";
 import styles from "../styles/home.module.scss";
+
+const metadata = {
+  title: "Next Template Vulcan: Home",
+  description: "Your description",
+  canonical: "https://vulcanca.com",
+  imageAlt: "imageAlt",
+  data1: "2 minutes",
+};
 
 const hero = () => {
   return (
@@ -17,9 +25,7 @@ const hero = () => {
 const Home = () => {
   return (
     <>
-      <Head>
-        <title>Next Vulcan: Home</title>
-      </Head>
+      <Helmet data={metadata} />
       <Header />
       <div className={styles.homePage}>{hero()}</div>
       <Footer />
